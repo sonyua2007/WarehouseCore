@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WarehouseCore
 {
-    public class WarehouseException : Exception
+    public class Exceptions : Exception
     {
-        public WarehouseException()
+        public Exceptions()
             : base("Сталася помилка")
         {
         }
-        public WarehouseException(string message)
+        public Exceptions(string message)
             : base(message)
         {
         }

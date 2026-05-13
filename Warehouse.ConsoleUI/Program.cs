@@ -28,7 +28,7 @@ public class Program
         Supplier ukrainianSupplier = new Supplier(202, "Пум", "Пурум", "H&M Inc");
         myWarehouse.AddSupplier(germanSupplier);
         myWarehouse.AddSupplier(ukrainianSupplier);
-        
+
         Customer customer1 = new Customer(301, "Блаблабла", "Блеблебле", "Шевченка 3", "+380 95 123 4567");
         Customer customer2 = new Customer(302, "Мда", "Агага", "Воскресенка 15/2", "+380 12 34 5678");
         myWarehouse.AddCustomer(customer1);
@@ -141,21 +141,21 @@ public class Program
         }
 
         Console.WriteLine("\n--- 2.6.1 Сортування товарів за назвою ---");
-        List<Product> sortedByName = myWarehouse.GetProductsSortedByName();
+        List<Product> sortedByName = ProductService.SortByName(myWarehouse.GetAllProducts());
         foreach (Product p in sortedByName)
         {
             Console.WriteLine($" - {p}");
         }
 
         Console.WriteLine("\n--- 2.6.2 Сортування товарів за брендом ---");
-        List<Product> sortedByBrand = myWarehouse.GetProductsSortedByBrand();
+        List<Product> sortedByBrand = ProductService.SortByBrand(myWarehouse.GetAllProducts());
         foreach (Product p in sortedByBrand)
         {
             Console.WriteLine($" - {p}");
         }
 
         Console.WriteLine("\n--- 2.6.3 Сортування товарів за ціною ---");
-        List<Product> sortedByPrice = myWarehouse.GetProductsSortedByPrice();
+        List<Product> sortedByPrice = ProductService.SortByPrice(myWarehouse.GetAllProducts());
         foreach (Product p in sortedByPrice)
         {
             Console.WriteLine($" - {p}");
@@ -189,16 +189,14 @@ public class Program
         }
 
         Console.WriteLine("\n--- 3.5.1 Сортування постачальників за іменем ---");
-        List<Supplier> suppliersByName = new List<Supplier>(myWarehouse.Suppliers);
-        suppliersByName.Sort((x, y) => x.FirstName.CompareTo(y.FirstName));
+        List<Supplier> suppliersByName = PartnerService.SortSuppliersByFirstName(myWarehouse.Suppliers);
         foreach (Supplier s in suppliersByName)
         {
             Console.WriteLine($" - {s.GetDetails()}");
         }
 
         Console.WriteLine("\n--- 3.5.2 Сортування постачальників за прізвищем ---");
-        List<Supplier> suppliersByLastName = new List<Supplier>(myWarehouse.Suppliers);
-        suppliersByLastName.Sort((x, y) => x.LastName.CompareTo(y.LastName));
+        List<Supplier> suppliersByLastName = PartnerService.SortSuppliersByLastName(myWarehouse.Suppliers);
         foreach (Supplier s in suppliersByLastName)
         {
             Console.WriteLine($" - {s.GetDetails()}");
@@ -210,7 +208,7 @@ public class Program
 
         string productQuery = "Galaxy";
         Console.WriteLine($"\n--- 4.1 Пошук серед товарів за словом '{productQuery}' ---");
-        List<Product> foundProducts = myWarehouse.SearchProducts(productQuery);
+        List<Product> foundProducts = ProductService.Search(myWarehouse.GetAllProducts(), productQuery);
         if (foundProducts.Count > 0)
         {
             foreach (Product p in foundProducts)
@@ -225,7 +223,7 @@ public class Program
 
         string customerQuery = "Бла";
         Console.WriteLine($"\n--- 4.2 Пошук серед замовників за фрагментом '{customerQuery}' ---");
-        List<Customer> foundCustomers = myWarehouse.SearchCustomers(customerQuery);
+        List<Customer> foundCustomers = PartnerService.SearchCustomers(myWarehouse.Customers, customerQuery);
         if (foundCustomers.Count > 0)
         {
             foreach (Customer c in foundCustomers)
@@ -237,6 +235,5 @@ public class Program
         {
             Console.WriteLine("Замовників за цим запитом не знайдено.");
         }
-
     }
 }

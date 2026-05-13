@@ -50,54 +50,5 @@ namespace WarehouseCore
             }
             return allProducts;
         }
-        public List<Product> GetProductsSortedByName()
-        {
-            List<Product> products = GetAllProducts();
-            products.Sort();
-            return products;
-        }
-        public List<Product> GetProductsSortedByBrand()
-        {
-            List<Product> products = GetAllProducts();
-            products.Sort((x, y) => x.Brand.CompareTo(y.Brand));
-            return products;
-        }
-        public List<Product> GetProductsSortedByPrice()
-        {
-            List<Product> products = GetAllProducts();
-            products.Sort((x, y) => x.Price.CompareTo(y.Price));
-            return products;
-        }
-        public List<Product> SearchProducts(string keyword)
-        {
-            List<Product> results = new List<Product>();
-            List<Product> allProducts = GetAllProducts();
-            foreach (Product product in allProducts)
-            {
-                if (product.Name.ToLower().Contains(keyword.ToLower()))
-                    results.Add(product);
-            }
-            return results;
-        }
-        public List<Customer> SearchCustomers(string keyword)
-        {
-            List<Customer> results = new List<Customer>();
-            foreach (Customer customer in Customers)
-            {
-                if (customer.FirstName.ToLower().Contains(keyword.ToLower()) || customer.LastName.ToLower().Contains(keyword.ToLower()))
-                    results.Add(customer);
-            }
-            return results;
-        }
-        public List<Supplier> SearchSuppliers(string keyword)
-        {
-            List<Supplier> results = new List<Supplier>();
-            foreach (Supplier supplier in Suppliers)
-            {
-                if (supplier.FirstName.ToLower().Contains(keyword.ToLower()) || supplier.LastName.ToLower().Contains(keyword.ToLower()))
-                    results.Add(supplier);
-            }
-            return results;
-        }
     }
 }

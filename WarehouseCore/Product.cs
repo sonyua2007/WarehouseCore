@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarehouseCore
 {
-    public class Product : IComparable<Product>
+    public class Product
     {
         private double price;
         private int quantity;
@@ -23,7 +23,7 @@ namespace WarehouseCore
             set 
             {
                 if (value < 0)
-                    throw new WarehouseException("Помилка :( Ціна не може бути від'ємною.");
+                    throw new Exceptions("Помилка :( Ціна не може бути від'ємною.");
                 price = value; 
             } 
         }
@@ -36,7 +36,7 @@ namespace WarehouseCore
             set
             {
                 if (value < 0)
-                    throw new WarehouseException("Помилка :( Кількість товару не може бути від'ємною.");
+                    throw new Exceptions("Помилка :( Кількість товару не може бути від'ємною.");
                 quantity = value;
             }
         }
@@ -48,11 +48,6 @@ namespace WarehouseCore
             Brand = brand;
             Price = price;
             Quantity = quantity;
-        }
-        public int CompareTo(Product other)
-        {
-            if (other == null) return 1;
-            return this.Name.CompareTo(other.Name);
         }
         public override string ToString()
         {
